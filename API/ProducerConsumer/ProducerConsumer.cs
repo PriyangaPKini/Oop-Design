@@ -16,10 +16,13 @@ namespace ProducerConsumerNS
                 consumers.Add(new Consumer(){Id=i+1});
             }
 
-            consumers[0].Consume();
-            consumers[1].Consume();
-            consumers[0].Consume();
-
+            consumers[0].Consume(producer.getCount());
+            consumers[1].Consume(producer.getCount());
+            producer.Produce(4);
+            consumers[0].Consume(producer.getCount());
+            consumers[1].Consume(producer.getCount());
+            consumers[1].Consume(producer.getCount());
+            
             // Id of consumer to remove = 4
             var id = 4;
             var consumer = new Consumer(){Id=id};

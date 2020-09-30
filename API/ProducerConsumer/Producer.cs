@@ -13,8 +13,7 @@ namespace ProducerConsumerNS
 {
     class Producer
     {
-        public List<int> Items { get; set; }
-
+        private List<int> Items { get; set; }
         public Producer()
         {
             Items = new List<int>();
@@ -24,9 +23,13 @@ namespace ProducerConsumerNS
         {
             for (int i = 0; i < n; i++)
             {
-                Items.Add(i);
+                Items.Add(i+Items.Count);
             }
+        }
 
+        public int getCount()
+        {
+            return Items.Count;
         }
     }
 }

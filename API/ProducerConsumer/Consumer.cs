@@ -6,14 +6,15 @@ namespace ProducerConsumerNS
     class Consumer
     {
         public int Id { get; set; }
-        public bool HasConsumed { get; set; }
-        public void Consume()
+        private int LastConsumed { get; set; }
+        public void Consume(int index)
         {
-            if (HasConsumed == true)
-                throw new Exception("Consumer had already consumed");
-            else
-                System.Console.WriteLine($"Consumer {Id} consumed");
-                HasConsumed = true;
+            if (LastConsumed == index)
+                // System.Console.WriteLine($"Consumer {Id} had already consumed all items");
+                throw new InvalidOperationException($"Consumer {Id} had already consumed all items");
+            else               
+                LastConsumed = index;
+                System.Console.WriteLine($"Consumer {Id} consumed {LastConsumed}");
         }
     }
 }
