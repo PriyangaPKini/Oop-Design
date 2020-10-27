@@ -63,7 +63,7 @@ public abstract class Account {
   public boolean resetPassword();
 }
 
-public class Librarian extends Account {
+public class Librarian :  Account {
   public boolean addBookItem(BookItem bookItem);
 
   public boolean blockMember(Member member);
@@ -71,7 +71,7 @@ public class Librarian extends Account {
   public boolean unBlockMember(Member member);
 }
 
-public class Member extends Account {
+public class Member : Account {
   private Date dateOfMembership;
   private int totalBooksCheckedout;
 
@@ -157,7 +157,7 @@ public abstract class Book {
   private List<Author> authors;
 }
 
-public class BookItem extends Book {
+public class BookItem : Book {
   private String barcode;
   private boolean isReferenceOnly;
   private Date borrowed;
@@ -187,14 +187,14 @@ public class Rack {
   private String locationIdentifier;
 }
 
-public interface Search {
+public interface ISearch {
   public List<Book> searchByTitle(String title);
   public List<Book> searchByAuthor(String author);
   public List<Book> searchBySubject(String subject);
   public List<Book> searchByPubDate(Date publishDate);
 }
 
-public class Catalog implements Search {
+public class Catalog : ISearch {
   private HashMap<String, List<Book>> bookTitles;
   private HashMap<String, List<Book>> bookAuthors;
   private HashMap<String, List<Book>> bookSubjects;
