@@ -11,30 +11,24 @@ namespace MarsRover
         private Point _currentPosition;
         private Direction _orientation;
 
-        public void ChangeOrientation(char command)
+        public void RotateRight()
         {
-            if (command == 'L')
+            if (_orientation != Direction.W)
             {
-                if (_orientation == Direction.N)
-                {
-                    _orientation = Direction.W;
-                }
-                else
-                {
-                    _orientation -= 1;
-                }
+                _orientation += 1;
+                return;
             }
-            else if (command == 'R')
+            _orientation = Direction.N;
+        }
+
+        public void RotateLeft()
+        {
+            if (_orientation != Direction.N)
             {
-                if (_orientation == Direction.W)
-                {
-                    _orientation = Direction.N;
-                }
-                else
-                {
-                    _orientation += 1;
-                }
+                _orientation -= 1;
+                return;
             }
+            _orientation = Direction.W;
         }
 
         public string Explore(string commands)
@@ -45,17 +39,17 @@ namespace MarsRover
                 switch (command)
                 {
                     case 'L':
-                        ChangeOrientation(command);
+                        RotateLeft();
                         break;
                     case 'R':
-                        ChangeOrientation(command);
+                        RotateRight();
                         break;
                     case 'M':
                         Move(command);
-                    break;
+                        break;
                 }
             }
-            return $"{_currentPosition.X} {_currentPosition.Y} {_orientation}";         
+            return $"{_currentPosition.X} {_currentPosition.Y} {_orientation}";
         }
 
         public void Move(char command)
