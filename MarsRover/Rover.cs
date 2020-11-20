@@ -1,36 +1,15 @@
 namespace MarsRover
 {
-    class Rover : IRover
+    class Rover : Movements, IRover
     {
-        public Rover(Point curPosition, Direction orientation)
+        private Position _currentPosition;
+        private Direction _orientation;
+
+        public Rover(Position curPosition, Direction orientation)
         {
             _currentPosition = curPosition;
             _orientation = orientation;
-        }
-
-        private Point _currentPosition;
-        private Direction _orientation;
-
-        public void RotateRight()
-        {
-            if (_orientation != Direction.W)
-            {
-                _orientation += 1;
-                return;
-            }
-            _orientation = Direction.N;
-        }
-
-        public void RotateLeft()
-        {
-            if (_orientation != Direction.N)
-            {
-                _orientation -= 1;
-                return;
-            }
-            _orientation = Direction.W;
-        }
-
+        }           
         public string Explore(string commands)
         {
             System.Console.WriteLine("Exploring...");
@@ -39,39 +18,40 @@ namespace MarsRover
                 switch (command)
                 {
                     case 'L':
-                        RotateLeft();
+                        _orientation = RotateLeft(_orientation);
                         break;
                     case 'R':
-                        RotateRight();
+                        _orientation = RotateRight(_orientation);
                         break;
                     case 'M':
                         Move(command);
                         break;
                 }
+                System.Console.WriteLine($"{_currentPosition.GetX()} {_currentPosition.GetY()} {_orientation}");
             }
-            return $"{_currentPosition.X} {_currentPosition.Y} {_orientation}";
+            return $"{_currentPosition.GetX()} {_currentPosition.GetY()} {_orientation}";
         }
 
         public void Move(char command)
         {
             switch (_orientation)
             {
-                case Direction.N:
-                    _currentPosition.Y += 1;
+                case Direction.N: 
+                    _currentPosition = MoveNorth(_currentPosition);
                     break;
 
-                case Direction.E:
-                    _currentPosition.X += 1;
+                case Direction.E: 
+                    _currentPosition = MoveEast(_currentPosition);
                     break;
 
-                case Direction.S:
-                    _currentPosition.Y -= 1;
+                case Direction.S: 
+                    _currentPosition = MoveSouth(_currentPosition);
                     break;
 
-                case Direction.W:
-                    _currentPosition.X -= 1;
+                case Direction.W: 
+                    _currentPosition = MoveWest(_currentPosition);
                     break;
             }
-        }
+        }        
     }
 }
