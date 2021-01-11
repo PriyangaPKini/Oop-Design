@@ -31,23 +31,23 @@ public enum AccountStatus{
 }
 
 public class Address {
-  private String streetAddress;
-  private String city;
-  private String state;
-  private String zipCode;
-  private String country;
+  private string streetAddress;
+  private string city;
+  private string state;
+  private string zipCode;
+  private string country;
 }
 
 public class Person {
-  private String name;
+  private string name;
   private Address address;
-  private String email;
-  private String phone;
+  private string email;
+  private string phone;
 }
 
 public class Constants {
-  public static final int MAX_BOOKS_ISSUED_TO_A_USER = 5;
-  public static final int MAX_LENDING_DAYS = 10;
+  public const int MAX_BOOKS_ISSUED_TO_A_USER = 5;
+  public const int MAX_LENDING_DAYS = 10;
 }
 
 // For simplicity, we are not defining getter and setter functions. The reader can
@@ -55,20 +55,21 @@ public class Constants {
 // public getter methods and modified only through their public methods function.
 
 public abstract class Account {
-  private String id;
-  private String password;
+  private string id;
+  private string password;
   private AccountStatus status;
   private Person person;
 
-  public boolean resetPassword();
+  public bool resetPassword();
 }
 
-public class Librarian :  Account {
-  public boolean addBookItem(BookItem bookItem);
+public class Librarian : Account
+{
+  bool addBookItem(BookItem bookItem);
 
-  public boolean blockMember(Member member);
+  bool blockMember(Member member);
 
-  public boolean unBlockMember(Member member);
+  bool unBlockMember(Member member);
 }
 
 public class Member : Account {
